@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ling-School — AI-powered personalized tutoring platform</title>
+  <link rel="icon" href="ling.JPG" />
+  <meta name="description"
+    content="Ling-School is an AI-powered personalized tutoring platform for Bangladeshi students (Class 6–12). Learn NCTB English & ICT smarter, not harder." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-dark: #4338ca;
+      --secondary: #ec4899;
+      --accent: #8b5cf6;
+      --bg: #020617;
+      --surface: #020617;
+      --card: #020617;
+      --card-soft: #020617;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #1f2937;
+      --radius: 16px;
+      --gradient: linear-gradient(135deg, #4f46e5 0%, #ec4899 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Outfit', sans-serif;
+      line-height: 1.1;
+      color: #fff;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: 0.3s;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.4rem;
+    }
+
+    /* NAVIGATION */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(2, 6, 23, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.03em;
+    }
+
+    .logo img {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 0 18px rgba(79, 70, 229, 0.6);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.4rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-toggle {
+      display: none;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      border-radius: 999px;
+      padding: 0.3rem 0.7rem;
+      background: rgba(15, 23, 42, 0.8);
+      font-size: 0.8rem;
+      color: #e5e7eb;
+      cursor: pointer;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 26px rgba(79, 70, 229, 0.65);
+    }
+
+    .btn-outline {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: #e5e7eb;
+    }
+
+    .btn-outline:hover {
+      background: rgba(30, 64, 175, 0.35);
+      border-color: rgba(129, 140, 248, 0.7);
+    }
+
+    /* HERO SECTION */
+    .hero {
+      padding: 130px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.3) 0%, rgba(2, 6, 23, 0) 65%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      display: grid;
+      gap: 3rem;
+    }
+
+    .hero-content {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.9rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(129, 140, 248, 0.6);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #c7d2fe;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.1rem, 4vw, 2.6rem);
+      margin-bottom: 0.8rem;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      max-width: 540px;
+      margin: 0 auto 1.8rem;
+      font-size: 0.98rem;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 0.8rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .app-download-links {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* DASHBOARD PREVIEW */
+    .dashboard-preview {
+      margin-top: 3rem;
+    }
+
+    .dashboard-card {
+      background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.16), rgba(15, 23, 42, 0.96));
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      border-radius: 22px;
+      padding: 1.8rem;
+      box-shadow: 0 22px 45px -18px rgba(0, 0, 0, 0.8);
+    }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 1.6rem;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .menu-item {
+      padding: 0.6rem 0.85rem;
+      border-radius: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-size: 0.86rem;
+    }
+
+    .menu-item.active {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(129, 140, 248, 0.7);
+      color: #e0e7ff;
+    }
+
+    .menu-item:hover:not(.active) {
+      background: rgba(15, 23, 42, 0.7);
+      color: #e5e7eb;
+    }
+
+    .main-view {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.4rem;
+    }
+
+    .stat-card {
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 1.1rem 1.2rem;
+      border-radius: 14px;
+    }
+
+    .stat-card h4 {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .stat-value {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .progress-bar {
+      height: 5px;
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 999px;
+      margin-top: 0.7rem;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gradient);
+      width: 75%;
+      border-radius: 999px;
+    }
+
+    .ai-note {
+      font-size: 0.85rem;
+      color: #cbd5e1;
+    }
+
+    /* SHARED SECTIONS */
+    section {
+      padding: 70px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 2.4rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* FEATURES */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.6rem;
+    }
+
+    .feature-card {
+      background: rgba(15, 23, 42, 0.95);
+      padding: 1.6rem;
+      border-radius: 18px;
+      border: 1px solid rgba(30, 64, 175, 0.55);
+      transition: 0.25s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.7);
+    }
+
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      background: rgba(30, 64, 175, 0.4);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* SUBJECTS SECTION */
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: 1.8rem;
+      align-items: stretch;
+    }
+
+    .subject-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .subject-pill {
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 0.78rem;
+      color: #e5e7eb;
+    }
+
+    .subjects-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 18px;
+      border: 1px solid rgba(30, 64, 175, 0.7);
+      padding: 1.5rem 1.6rem;
+    }
+
+    .subjects-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .subjects-list {
+      list-style: none;
+      padding-left: 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .subjects-list li {
+      margin-bottom: 0.4rem;
+    }
+
+    /* HOW IT WORKS */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .step-card {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 1.3rem 1.4rem;
+      font-size: 0.9rem;
+    }
+
+    .step-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #a5b4fc;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      padding: 80px 0 70px;
+      text-align: center;
+    }
+
+    .cta-box {
+      background: radial-gradient(circle at top, rgba(79, 70, 229, 0.25), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(129, 140, 248, 0.7);
+      border-radius: 26px;
+      padding: 2.8rem 1.6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box h2 {
+      font-size: 1.7rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .cta-box p {
+      color: var(--text-muted);
+      margin-bottom: 1.8rem;
+      font-size: 0.95rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(30, 64, 175, 0.6);
+      padding: 1.8rem 0 2.4rem;
+      margin-top: 1rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      color: #a5b4fc;
+      text-decoration: none;
+      font-size: 0.86rem;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .dash-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 0.4rem;
+      }
+
+      .menu-item {
+        white-space: nowrap;
+      }
+
+      .subjects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .hero {
+        padding-top: 120px;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="#top" class="logo">
+        <img src="ling.JPG" alt="Ling-School Logo">
+        <span>Ling-School</span>
+      </a>
+      <button class="nav-toggle" onclick="document.querySelector('.nav-links')?.classList.toggle('open')">
+        Menu
+      </button>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#subjects">Subjects</a>
+        <a href="#how">How it works</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#get-started" class="btn btn-primary" style="padding: 0.45rem 1.1rem;">Start free</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="top" class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <span class="badge">
+          🚀 For Bangladeshi Students · Class 6–12 · NCTB
+        </span>
+        <h1>The easiest path to learn academic terms</h1>
+        <p>
+          Ling-School is an <strong>AI-powered personalized tutoring platform</strong> for Bangladeshi students (Class
+          6–12).
+          Learn NCTB
+          English smarter, not harder. It is your simple AI co-pilot and progress dashboard. Practice
+          NCTB English
+          books, ask questions in
+          natural language, and always know what to study next.
+        </p>
+        <div class="app-download-links">
+          <a href="#" aria-label="Download on the App Store"><img
+              src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+              alt="Download on the App Store" style="width: 135px; height: auto;"></a>
+          <a href="#" aria-label="Get it on Google Play"><img
+              src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+              alt="Get it on Google Play" style="width: 135px; height: auto;"></a>
+        </div>
+      </div>
+
+      <!-- DASHBOARD MOCKUP -->
+      <div class="dashboard-preview" id="dashboard">
+        <div class="dashboard-card">
+          <div class="dash-grid">
+            <!-- Sidebar -->
+            <div class="sidebar">
+              <div class="menu-item active">📊 Overview</div>
+              <div class="menu-item">📚 English 1st</div>
+              <div class="menu-item">📘 English 2nd</div>
+              <div class="menu-item">💻 Home Tutor</div>
+              <div class="menu-item">💻 Global Tutor</div>
+              <div class="menu-item">📝 Mock Tests</div>
+            </div>
+
+            <!-- Main View -->
+            <div class="main-view">
+              <div class="stat-card">
+                <h4>Today’s study target</h4>
+                <div class="stat-value">3 tasks</div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 66%; background:#8b5cf6;"></div>
+                </div>
+                <p class="ai-note" style="margin-top:0.45rem;">Finish 2 English reading tasks & 1
+                  writing.</p>
+              </div>
+              <div class="stat-card">
+                <h4>Weekly progress</h4>
+                <div class="stat-value">78%</div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width:78%; background:#ec4899;"></div>
+                </div>
+                <p class="ai-note" style="margin-top:0.45rem;">You are ahead of your weekly goal. ✅</p>
+              </div>
+              <div class="stat-card" style="grid-column: span 2;">
+                <h4>🤖 AI Co-pilot Suggestion</h4>
+                <p class="ai-note">
+                  You made mistakes in <strong>WH-questions</strong> in the last quiz. I’ve created a
+                  10-minute practice
+                  set with Bangla hints to help you improve.
+                </p>
+                <a href="#"
+                  style="color:#a5b4fc;font-size:0.88rem;font-weight:600;display:inline-block;margin-top:0.5rem;">
+                  Start quick practice →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Made for real students, not just marks</h2>
+        <p>Ling-School keeps things simple: clear tasks, instant help, and a calm overview of where you stand.
+        </p>
+      </div>
+      <div class="grid-3">
+        <div class="feature-card">
+          <div class="icon-box">🤖</div>
+          <h3>Ask anything, anytime</h3>
+          <p>Type your question in plain English or Bangla. The AI explains step-by-step — like a patient home
+            tutor,
+            not just the final answer.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon-box">📊</div>
+          <h3>See your real progress</h3>
+          <p>Simple charts show how you are doing in reading, writing, grammar and so on topics. No stress,
+            only
+            clear
+            signals where to focus.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon-box">🇧🇩</div>
+          <h3>NCTB-aligned content</h3>
+          <p>Lessons, examples and questions are mapped to NCTB syllabus for Class 6–12, starting with English
+            1st and English 2nd.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUBJECTS & CLASSES -->
+  <section id="subjects">
+    <div class="container">
+      <div class="section-header">
+        <h2>Classes & subjects inside Ling-School</h2>
+        <p>Focus on what you need now. You can start with one class or unlock the full range.</p>
+      </div>
+      <div class="subjects-grid">
+        <div>
+          <h3 style="font-size:1.05rem;margin-bottom:0.4rem;">Class coverage</h3>
+          <p style="color:var(--text-muted);font-size:0.9rem;">
+            We gradually support all NCTB classes from 6 to 12. You can switch class at any time as you move
+            forward or
+            want to revise older topics.
+          </p>
+          <div class="subject-pill-row">
+            <span class="subject-pill">Class 6</span>
+            <span class="subject-pill">Class 7</span>
+            <span class="subject-pill">Class 8</span>
+            <span class="subject-pill">Class 9–10</span>
+            <span class="subject-pill">HSC 1st Year</span>
+            <span class="subject-pill">HSC 2nd Year</span>
+          </div>
+        </div>
+        <div class="subjects-card">
+          <h3>Focused areas</h3>
+          <ul class="subjects-list">
+            <li>• English 1st paper — reading, vocabulary, comprehension</li>
+            <li>• English 2nd paper — grammar, writing templates, paragraphs</li>
+            <li>• Ask tutor — theory, MCQ practice, short questions</li>
+            <li>• Smart revision — small daily tasks instead of long boring sessions</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="container">
+      <div class="section-header">
+        <h2>How Ling-School fits into your day</h2>
+        <p>Designed to be light, not heavy. Just open, practice a little, and close with a clear mind.</p>
+      </div>
+      <div class="steps">
+        <div class="step-card">
+          <div class="step-label">Step 1</div>
+          <h3 style="font-size:1rem;margin-bottom:0.3rem;">Pick your class & subject</h3>
+          <p>Choose your NCTB class and whether you want to work on English 1st, 2nd or more today.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-label">Step 2</div>
+          <h3 style="font-size:1rem;margin-bottom:0.3rem;">Follow today’s plan</h3>
+          <p>Get 2–4 short tasks: one concept, a few questions and one quick check. Finish in 10–20 minutes.
+          </p>
+        </div>
+        <div class="step-card">
+          <div class="step-label">Step 3</div>
+          <h3 style="font-size:1rem;margin-bottom:0.3rem;">Ask the AI for help</h3>
+          <p>If you are stuck, ask why. The AI explains with examples and Bangla hints so you really
+            understand.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-label">Step 4</div>
+          <h3 style="font-size:1rem;margin-bottom:0.3rem;">See your improvement</h3>
+          <p>Simple charts show how you are improving week by week. Use it before exams to revise only the
+            weak areas.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / GET STARTED -->
+  <section class="cta-section" id="get-started">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Start studying smarter with Ling-School</h2>
+        <p>No complicated setup. Just log in, pick your class, and try a short AI-guided session for free.</p>
+        <a href="#" class="btn btn-primary">Create free student account</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-row">
+        <p>© 2025 Ling-School — built by <a href="index.html">MEHErix</a> (Finland based tech startup). All
+          rights reserved.</p>
+        <p>
+          <a href="privacy_ling.html">Privacy & Policy</a> ·
+          <a href="terms_ling.html">Terms & Conditions</a> ·
+          <a href="#top">Back to top ↑</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
